@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    {% if message %}
+        <h3>You Have Been Succcessfully Registered</h3>
+    {% endif %}
+
+    {% if errormessage %}
+        <h3>
+            Email Already Taken.Try Another name
+        </h3>
+    {% endif %}
+
+    <form action="{{ url_for('signup') }}" method="post">
+        <div class="form-group">
+            <label for="user_name">Full Name</label>
+            <input type="text" name="name" class="form-control" id="user_name" placeholder="Full Name">
+            {% if not name %}
+                <small id="nameHelp" class="form-text-muted">Enter A Valid Name</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="user_id">Email ID</label>
+            <input type="email" name="email" class="form-control" id="user_id" placeholder="Email">
+            {% if not email %}
+                <small id="emailHelp" class="form-text-muted">Enter A Valid Email-id</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="pass_word">Password</label>
+            <input type="password" name="password" class="from-control" id="pass_word" placeholder="Password">
+            {% if not password %}
+                <small id="passHelp" class="form-text-muted">Enter A Valid Password</small>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <button class="btn btn-primary">Sign Up</button>
+        </div>
+
+    </form>
+
+    <h3 class="tag">Back To Login Page</h3>
+    <a href="{{ url_for('signin') }}">Login</a>
+
+{% endblock %}
