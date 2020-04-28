@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h2>About The Book</h2>
+    <br>
+        <h3> Title : {{ data.title }}</h3>
+        <h3> ISBN : {{ data.isbn }}</h3>
+        <h3> Author : {{ data.author }}</h3>
+        <h4>Year : {{ data.year }}</h4>
+
+    <br>
+    <h4>Average Rating : {{ fetch_info[0] }}</h4>
+    <h4># of Ratings : {{ fetch_info[1] }}</h4>
+
+    <br>
+
+    <form action="{{ url_for('about', isbn = data.isbn) }}" method="post">
+        <div class="form-group">
+            <label for="comment">Comment</label>
+            <textarea class="form-control" rows="8" id="comment" name="comments"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    {% if message %}
+        Thank you for the review!!
+    {% endif %}
+
+{% endblock %}
