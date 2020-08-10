@@ -6,10 +6,6 @@ CREATE TABLE userID(
 );
 
 
-INSERT INTO userID (name, email, password) VALUES ('bob', 'bob@test.com', digest('12345', 'sha256'));
-
-
-
 
 CREATE TABLE books_info(
     id SERIAL PRIMARY KEY,
