@@ -10,11 +10,6 @@ INSERT INTO userID (name, email, password) VALUES ('bob', 'bob@test.com', digest
 
 
 
-crypt.crypt('password',password)}
-
-
-email = akshat@test.com
-password = akshat123
 
 CREATE TABLE books_info(
     id SERIAL PRIMARY KEY,
