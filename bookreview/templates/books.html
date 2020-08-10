@@ -1,63 +1,184 @@
 {% extends "layout.html" %}
+{% block title %}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/books.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
 
+{% endblock %}
 
 {% block body %}
-    <h2>Hi {{ user }}</h2>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <h4 class="navbar-brand">What's In A Book</h4>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="{{ url_for('books') }} " class="nav-link">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </li>
+      </ul>
+    </div>  
+  </nav>
+  
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 line">
+            <hr>
+        </div>
+    </div>
+    
     <form action="{{ url_for('books') }}" method="post">
-        <div class="form-group">
-
-            <label for="category">Search by</label>
-            <select class="form-control" name="category">
-                <option value="ISBN">ISBN</option>
-                <option value="Author">Author Name</option>
-                <option value="Title">Book Name</option>
-            </select>
+        <div class="row" id="bg">
+            <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                        
+                        <label for="category">Search by</label>
+                        <select class="form-control" name="category"required>
+                            <option value="ISBN">ISBN</option>
+                            <option value="Author">Author Name</option>
+                            <option value="Title">Book Name</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label for="query">Enter The Search</label>
+                    <input class="form-control" type="text" name="search" required>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <input class="btn" type="submit" name="" value="Search">
+                </div>
+            </div> 
         </div>
-        
-        <div class="form-group">
-            <label for="query">Enter The Search</label>
-            <input class="form-control" type="text" name="search">
-        </div>
-
-        <div class="form-group">
-            <button class="btn btn-primary">Submit</button>
+        <br>    
+        <div class="row">
+            <div class="col-md-12 col-sm-12 search">
+    
+                {% if data and data.status == 200 %}
+    
+                    {% if data.books %}
+                        <h1>Related Searches</h1>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <th scope="col">ISBN</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Title</th>
+                                <th scope="col"></th>
+                            </thead>
+                            <tbody>
+                                {% for book in data.books %}
+                                    <tr>    
+                                        <td>{{ book.isbn }}</td>
+                                        <td>{{ book.author }}</td>
+                                        <td>{{ book.title }}</td>
+                                        <td><a href="{{ url_for('about', isbn = book.isbn)  }}">Details</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    {% else %}
+                        <br>
+                        <h2>No results found !!</h2>
+                    {% endif %}
+                {% endif %}
+            </div>
         </div>
     </form>
     
-    {% if data is none %}
-        <br>
-        <h2>{{ category }} cannot be empty.</h2>
+</div>
 
-    {% elif data and data.status == 200 %}
+<!----
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h5>Whats In A Book</h5>
+        </div>
 
-        {% if data.books %}
-            <h1>Related Searches</h1>
-            <table class="table table-dark">
-                <thead>
-                    <th scope="col">ISBN</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Title</th>
-                    <th scope="col"></th>
-                </thead>
-                <tbody>
-                    {% for book in data.books %}
-                        <tr>    
-                            <td>{{ book.isbn }}</td>
-                            <td>{{ book.author }}</td>
-                            <td>{{ book.title }}</td>
-                            <td><a href="{{ url_for('about', isbn = book.isbn)  }}">Details</a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            
-        {% else %}
-            <br>
-            <h2>No results found !!</h2>
-        {% endif %}
-    {% endif %}
+        <div class="col-md-4 col-sm-4">
+            <h3>Hi {{ user }}</h3>
+        </div>
 
-    <br>
-    <a href="{{ url_for('logout') }}">Logout</a>
+        <div class="col-md-4 col-sm-4">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>    
+    <div class="row margin">
+        <div class="col-md-12 col-sm-12">
+            <hr>
+        </div>
+    </div>
+
+
+                    <form action="{{ url_for('books') }}" method="post">
+                        <div class="form-group">
+
+                            <label for="category">Search by</label>
+                            <select class="form-control" name="category">
+                                <option value="ISBN">ISBN</option>
+                                <option value="Author">Author Name</option>
+                                <option value="Title">Book Name</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="query">Enter The Search</label>
+                            <input class="form-control" type="text" name="search">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    
+                    {% if data is none %}
+                        <br>
+                        <h2>{{ category }} cannot be empty.</h2>
+
+                    {% elif data and data.status == 200 %}
+
+                        {% if data.books %}
+                            <h1>Related Searches</h1>
+                            <table class="table table-dark">
+                                <thead>
+                                    <th scope="col">ISBN</th>
+                                    <th scope="col">Author</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col"></th>
+                                </thead>
+                                <tbody>
+                                    {% for book in data.books %}
+                                        <tr>    
+                                            <td>{{ book.isbn }}</td>
+                                            <td>{{ book.author }}</td>
+                                            <td>{{ book.title }}</td>
+                                            <td><a href="{{ url_for('about', isbn = book.isbn)  }}">Details</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                        {% else %}
+                            <br>
+                            <h2>No results found !!</h2>
+                        {% endif %}
+                    {% endif %}
+
+                <br>
+                        -->
 
 {% endblock %}

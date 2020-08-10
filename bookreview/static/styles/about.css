@@ -1,0 +1,80 @@
+body{
+    background: url("https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+.box {
+    
+    padding: 20px;
+    
+    font-family: 'Fondamento', cursive;
+}
+
+.about {
+    text-align: left;
+    
+}
+
+.content  {
+    margin-left: 20px;
+    font-family: 'Handlee', cursive;
+    padding: 10px;
+}
+
+.content1 {
+    font-family: 'Handlee', cursive;    
+    margin-left: 20px;
+}
+
+.rating {
+    size: 5px;
+}
+
+.comm-style{
+    font-size: 25px;
+}
+
+.box1 {
+    font-family: 'Fondamento', cursive; 
+}
+
+.alert > .box {
+    padding:0px;
+}
+.navbar-nav li{
+    margin-right: 50px;
+    padding: 0 10px;
+}
+
+.nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.navbar-nav a:hover {
+    color: #007bff!important;
+} 
+.navbar-brand {
+    font-weight: 600px;
+    font-size: 30px;
+    font-family: 'Work Sans', sans-serif;
+}
+#navbarMenu {
+    font-weight: 600px;
+    font-size: 18px;
+    
+}   
+
+.alert {
+    width: fit-content;
+
+    margin-top: 10px;
+}
+
+.name {
+    font-family: 'Cantata One', serif;  
+
+}
+
+.comment {
+    font-family: 'Handlee', cursive;  
+    font-size: 20px;
+}

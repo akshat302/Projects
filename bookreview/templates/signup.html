@@ -1,49 +1,37 @@
 {% extends "layout.html" %}
 
+{% block title %}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sign.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
+<div class="container-fluid">
+    <div class="login-box">
+        <form action="{{ url_for('signup') }}" method="post">
 
-    {% if message %}
-        <h3>You Have Been Succcessfully Registered</h3>
-    {% endif %}
+            <h1>Signup</h1>
 
-    {% if errormessage %}
-        <h3>
-            Email Already Taken.Try Another name
-        </h3>
-    {% endif %}
+            <div class="textbox">
+                <input type="text" placeholder="Full Name" name="name" required="true">
+            </div>
+            
+            <div class="textbox">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <input type="email" placeholder="Email" name="email" value="" required="true">
+            </div>
+            
+            <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <input type="password" placeholder="Password" name="password" value="" required="true">
+            </div> 
+            
+            <input class="btn" type="submit" name="" value="Sign Up">
 
-    <form action="{{ url_for('signup') }}" method="post">
-        <div class="form-group">
-            <label for="user_name">Full Name</label>
-            <input type="text" name="name" class="form-control" id="user_name" placeholder="Full Name">
-            {% if not name %}
-                <small id="nameHelp" class="form-text-muted">Enter A Valid Name</small>
+            {% if errormessage %}
+                <h3 class="error">Email already exists !</h3>
             {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="user_id">Email ID</label>
-            <input type="email" name="email" class="form-control" id="user_id" placeholder="Email">
-            {% if not email %}
-                <small id="emailHelp" class="form-text-muted">Enter A Valid Email-id</small>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="pass_word">Password</label>
-            <input type="password" name="password" class="from-control" id="pass_word" placeholder="Password">
-            {% if not password %}
-                <small id="passHelp" class="form-text-muted">Enter A Valid Password</small>
-            {% endif %}
-        </div>
-        
-        <div class="form-group">
-            <button class="btn btn-primary">Sign Up</button>
-        </div>
-
-    </form>
-
-    <h3 class="tag">Back To Login Page</h3>
-    <a href="{{ url_for('signin') }}">Login</a>
-
+        </form>
+    </div>
+</div>
 {% endblock %}

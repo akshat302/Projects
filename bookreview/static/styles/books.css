@@ -1,0 +1,57 @@
+* {
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+}
+.navbar-nav li{
+    margin-right: 50px;
+    padding: 0 10px;
+  }
+body {
+    font-family: 'Work Sans', sans-serif;
+    background: url("https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+.nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.navbar-nav a:hover {
+    color: #007bff!important;
+} 
+.navbar-brand {
+    font-weight: 600px;
+    font-size: 30px;
+}
+#navbarMenu {
+    font-weight: 600px;
+    font-size: 18px;
+}
+
+.contain {
+    width: 80%;
+    margin: 0 auto;
+}
+.btn {
+    margin-top: 34px;
+    width: 40%;
+    background: lightgrey; 
+    color:black;
+    padding: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    border-color: black;
+
+}
+
+.form-group {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: large;
+}
+
+.search {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: large;
+}

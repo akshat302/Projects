@@ -1,31 +1,111 @@
 {% extends "layout.html" %}
 
+{% block title %}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/about.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Fondamento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h2>About The Book</h2>
-    <br>
-        <h3> Title : {{ data.title }}</h3>
-        <h3> ISBN : {{ data.isbn }}</h3>
-        <h3> Author : {{ data.author }}</h3>
-        <h4>Year : {{ data.year }}</h4>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <h4 class="navbar-brand">What's In A Book</h4>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="{{ url_for('books') }}" class="nav-link">Home</a>
+          </li>
+  
+          <li class="nav-item">
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+          </li>
+        </ul>
+      </div>  
+    </nav>
 
-    <br>
-    <h4>Average Rating : {{ fetch_info[0] }}</h4>
-    <h4># of Ratings : {{ fetch_info[1] }}</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
 
-    <br>
+            <div class="col-md-4">
+                {% if message %}
+                    <div class="alert alert-success" role="alert">
+                        Your review has been submitted.Thank You.
+                    </div>
+                {% endif %}
 
-    <form action="{{ url_for('about', isbn = data.isbn) }}" method="post">
-        <div class="form-group">
-            <label for="comment">Comment</label>
-            <textarea class="form-control" rows="8" id="comment" name="comments"></textarea>
+                {% if limit %}
+                    <div class="alert alert-danger" role="alert">
+                        You have already reviewed the book.
+                    </div>
+                {% endif %}
+
+                <div class="col-md-4"></div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 box">
+                <h1 class="heading">About The Book</h1>
+                <hr>
+                <div class="content">
+                    <h3>Title : {{ data.title }}</h3>
+                    <h3>ISBN : {{ data.isbn }}</h3>
+                    <h3>Author : {{ data.author }}</h3>
+                    <h3>Year of publication : {{ data.year }}</h3>
+                    <br>
+                    <h2>Goodreads(*)</h2>
+                    <h3>Average rating : {{ fetch_info[0] }}</h3>
+                    <h3># Of ratings : {{ fetch_info[1] }}</h3>
 
-        <div class="form-group">
-            <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        
+        <div class="col-md-6 col-sm-12 box">
+            <h1 class="heading">Your Reviews</h1>
+            <hr>
+            <div class="content1">
+                <h3 class="">Your Rating</h3>
+                <div class="rating">
+                    <input type="radio" name="star" id="star1"><label for="star1">1</label>
+                    <input type="radio" name="star" id="star1"><label for="star1">2</label>
+                    <input type="radio" name="star" id="star1"><label for="star1">3</label>
+                    <input type="radio" name="star" id="star1"><label for="star1">4</label>
+                    <input type="radio" name="star" id="star1"><label for="star1">5</label>
+                </div>
+                
+                <form action="{{ url_for('about', isbn = data.isbn) }}" method="post">
+                    <div class="form-group">
+                        <label for="comment" class="comm-style">Comment</label>
+                        <textarea class="form-control" rows="8" id="comment" name="comments"></textarea>
+                    </div>
+            
+                    <div class="form-group">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>    
+            </div>
+            
         </div>
-    </form>
-    {% if message %}
-        Thank you for the review!!
-    {% endif %}
+        </div>    
+        
+        <div class="row">
+            <div class="col-md-10 col-sm-12 box1">
+                <h1>Reviews</h1>
+                <hr>
+                    {% if comments %}    
+                        {% for i in range(length) %}
+                            <h3 class="name">{{ names[i] }}</h3> 
+                            <p class="comment">{{ comments[i] }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <h3>No Reviews Yet..</h3>    
+                    {% endif %}
 
+            </div>
+        </div>                      
+    </div>
 {% endblock %}

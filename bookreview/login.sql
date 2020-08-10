@@ -25,13 +25,20 @@ CREATE TABLE books_info(
 );
 
 
-if request.method == "POST":
-        category = request.form.get("category")
-        if category == "ISBN":
-            books_by_category = db.execute("SELECT isbn FROM books_info")
-        if category == "Author":
-            books_by_category = db.execute("SELECT author FROM books_info")
-        if category == "Books":
-            books_by_category = db.execute("SELECT books FROM books_info")
-        return render_template("books.html", suggestions=books_by_category)
-    
+
+CREATE TABLE review(
+    book_id INTEGER REFERENCES books_info(id),
+    comments VARCHAR NOT NULL,
+    user_id  uuid REFERENCES userID(id)
+);
+
+CREATE TABLE user(
+    id uuid NOT NULL DEFAULT gen_random_uuid PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
+    password VARCHAR NOT NULL
+);
+
+
+
+
