@@ -39,7 +39,7 @@ language-selector==0.1
 MarkupSafe==1.1.1
 module-wrapper==0.2.4
 netifaces==0.10.4
-numpy==1.19.1
+numpy==1.22.0
 oauthlib==2.0.6
 PAM==0.4.2
 pandas==1.0.5
